@@ -63,7 +63,7 @@ describe(`Test elasticSearch helper`, () => {
   });
 
   test('Test getCount helper', async () => {
-    const helperResponse = await getCount({ collection, query });
+    const helperResponse = await getCount({ collection, query, condition });
     expect(helperResponse).toBe(362125);
   });
 });

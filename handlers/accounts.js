@@ -37,7 +37,7 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
 
     switch (true) {
       case hash !== undefined && hash === 'count': {
-        data = await getCount({ collection, query });
+        data = await getCount({ collection, query, condition });
         break;
       }
       case hash !== undefined: {

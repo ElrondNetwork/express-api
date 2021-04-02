@@ -90,9 +90,9 @@ const getItem = async ({ collection, key, hash }) => {
   return formatItem({ document, key });
 };
 
-const getCount = async ({ collection, query }) => {
+const getCount = async ({ collection, query, condition }) => {
   const url = `${elasticUrl()}/${collection}/_count`;
-  query = buildQuery(query);
+  query = buildQuery(query, condition);
 
   const {
     data: { count },
