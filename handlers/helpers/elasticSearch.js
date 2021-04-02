@@ -14,7 +14,6 @@ const buildQuery = (query, condition = {}) => {
     const matchQuery = Object.keys(query).map((key) => {
       const match = {};
       match[key] = query[key];
-
       return { match };
     });
 
@@ -25,7 +24,12 @@ const buildQuery = (query, condition = {}) => {
       default:
         query = { bool: { must: matchQuery } };
     }
-  } else if (Object.keys(range.timestamp).length != 0) {
+
+    if (Object.keys(range.timestamp).length !== 0) {
+      query.bool.filter = { range: range };
+      query.bool.minimum_should_match = 1;
+    }
+  } else if (Object.keys(range.timestamp).length !== 0) {
     query.range = range;
   } else {
     query = { match_all: {} };
