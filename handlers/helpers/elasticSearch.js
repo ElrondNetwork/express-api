@@ -1,7 +1,7 @@
 const { axios } = require('./axiosWrapper');
 const { elasticUrl } = require('../configs/config');
 
-const buildQuery = (query = {}) => {
+const buildQuery = (query, condition = {}) => {
   delete query.from;
   delete query.size;
 
@@ -11,13 +11,20 @@ const buildQuery = (query = {}) => {
   const range = buildRange({ before, after });
 
   if (Object.keys(query).length) {
-    const must = Object.keys(query).map((key) => {
+    const matchQuery = Object.keys(query).map((key) => {
       const match = {};
       match[key] = query[key];
 
       return { match };
     });
-    query = { bool: { must } };
+
+    switch (condition) {
+      case 'should':
+        query = { bool: { should: matchQuery } };
+        break;
+      default:
+        query = { bool: { must: matchQuery } };
+    }
   } else if (Object.keys(range.timestamp).length != 0) {
     query.range = range;
   } else {
@@ -61,10 +68,10 @@ const formatItem = ({ document, key }) => {
   return { ...item, ..._source };
 };
 
-const getList = async ({ collection, key, query, sort }) => {
+const getList = async ({ collection, key, query, sort, condition }) => {
   const url = `${elasticUrl()}/${collection}/_search`;
   const { from = 0, size = 25 } = query;
-  query = buildQuery(query);
+  query = buildQuery(query, condition);
   sort = buildSort(sort);
 
   const {
