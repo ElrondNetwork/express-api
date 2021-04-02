@@ -19,6 +19,10 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
     const { hash } = pathParameters || {};
     let query = queryStringParameters || {};
 
+    const condition = queryStringParameters['condition']
+      ? queryStringParameters['condition']
+      : 'must';
+
     const keys = [
       'sender',
       'receiver',
@@ -41,7 +45,7 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
 
     switch (true) {
       case hash !== undefined && hash === 'count': {
-        data = await getCount({ collection, query });
+        data = await getCount({ collection, query, condition });
         break;
       }
       case hash !== undefined: {
@@ -108,7 +112,7 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
           nonce: 'desc',
         };
 
-        const items = await getList({ collection, key, query, sort });
+        const items = await getList({ collection, key, query, sort, condition });
 
         data = [];
         for (const item of items) {

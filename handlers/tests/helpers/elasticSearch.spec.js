@@ -38,9 +38,10 @@ describe(`Test elasticSearch helper`, () => {
   let key = 'address';
   let query = {};
   let sort = {};
+  let condition = 'must';
 
   test('Test getList helper', async () => {
-    const helperResponse = await getList({ collection, key, query, sort });
+    const helperResponse = await getList({ collection, key, query, sort, condition });
     const responseObject = [
       {
         address: 'erd1qqqqqqqqqqqqqqqpqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqplllst77y4l',

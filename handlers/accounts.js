@@ -22,6 +22,10 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
 
     const keys = ['from', 'size'];
 
+    const condition = queryStringParameters['condition']
+      ? queryStringParameters['condition']
+      : 'must';
+
     Object.keys(query).forEach((key) => {
       if (!keys.includes(key)) {
         delete query[key];
@@ -68,7 +72,7 @@ exports.handler = async ({ pathParameters, queryStringParameters }) => {
           balanceNum: 'desc',
         };
 
-        const items = await getList({ collection, key, query, sort });
+        const items = await getList({ collection, key, query, sort, condition });
 
         data = [];
         for (const item of items) {
