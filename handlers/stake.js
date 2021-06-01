@@ -78,7 +78,7 @@ exports.handler = async ({ pathParameters }) => {
         }),
       ]);
 
-      let data = {};
+      let data = { totalStaked: '0', unstakedTokens: undefined };
       if (totalStakedEncoded && totalStakedEncoded !== 'ContractsUnavailable') {
         data.totalStaked = Buffer.from(totalStakedEncoded[0], 'base64').toString('ascii');
       }
