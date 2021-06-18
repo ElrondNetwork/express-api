@@ -11,6 +11,10 @@ exports.handler = async ({ httpMethod, body, path }) => {
   //   throw new Error('move to gateway hostname');
   // }
 
+  console.log('method', httpMethod);
+  console.log('path', path);
+  console.log('body', body);
+
   try {
     const { data } = await axios({
       method: httpMethod.toLowerCase(),
