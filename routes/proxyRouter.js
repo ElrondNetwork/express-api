@@ -6,7 +6,7 @@ router.get(
   [
     '/address/:address',
     '/address/:address/balance',
-    '/address/:address:/nonce',
+    '/address/:address/nonce',
     '/address/:address/shard',
     '/address/:address/storage/:key',
     '/address/:address/transactions',
