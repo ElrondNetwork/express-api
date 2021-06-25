@@ -6,9 +6,10 @@ router.get(
   [
     '/address/:address',
     '/address/:address/balance',
-    '/address/:address:/nonce',
+    '/address/:address/nonce',
     '/address/:address/shard',
     '/address/:address/storage/:key',
+    '/address/:address/key/:index',
     '/address/:address/transactions',
     '/address/:address/esdt',
     '/address/:address/esdt/:token',

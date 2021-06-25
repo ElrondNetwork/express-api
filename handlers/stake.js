@@ -78,14 +78,12 @@ exports.handler = async ({ pathParameters }) => {
         }),
       ]);
 
-      const data = {
-        totalStaked: Buffer.from(totalStakedEncoded[0], 'base64').toString('ascii'),
-        unstakedTokens: undefined,
-      };
+      let data = { totalStaked: '0', unstakedTokens: undefined };
+      if (totalStakedEncoded && totalStakedEncoded !== 'ContractsUnavailable') {
+        data.totalStaked = Buffer.from(totalStakedEncoded[0], 'base64').toString('ascii');
+      }
 
-      console.log('unStakedTokensListEncoded', unStakedTokensListEncoded);
-
-      if (unStakedTokensListEncoded) {
+      if (unStakedTokensListEncoded && unStakedTokensListEncoded !== 'ContractsUnavailable') {
         data.unstakedTokens = unStakedTokensListEncoded.reduce((result, value, index, array) => {
           if (index % 2 === 0) {
             const [encodedAmount, encodedEpochs] = array.slice(index, index + 2);
