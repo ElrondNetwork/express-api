@@ -90,11 +90,15 @@ const getProviderMetadata = async (address) => {
   });
 
   if (response) {
-    const [name, website, identity] = response.map((base64) =>
-      Buffer.from(base64, 'base64').toString().trim().toLowerCase()
-    );
+    try {
+      const [name, website, identity] = response.map((base64) =>
+        Buffer.from(base64, 'base64').toString().trim().toLowerCase()
+      );
 
-    return { name, website, identity };
+      return { name, website, identity };
+    } catch (error) {
+      return { name: null, website: null, identity: null };
+    }
   }
 
   return { name: null, website: null, identity: null };
