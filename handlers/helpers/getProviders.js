@@ -84,11 +84,11 @@ const getProviderConfig = async (address) => {
 };
 
 const getProviderMetadata = async (address) => {
-  const response = await vmQuery({
-    contract: address,
-    func: 'getMetaData',
-  });
-
+  try {
+    const response = await vmQuery({
+      contract: address,
+      func: 'getMetaData',
+    });
   if (response) {
     try {
       const [name, website, identity] = response.map((base64) =>
@@ -100,8 +100,6 @@ const getProviderMetadata = async (address) => {
       return { name: null, website: null, identity: null };
     }
   }
-
-  return { name: null, website: null, identity: null };
 };
 
 const getNumUsers = async (address) => {
