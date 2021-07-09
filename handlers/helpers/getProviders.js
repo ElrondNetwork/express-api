@@ -84,11 +84,6 @@ const getProviderConfig = async (address) => {
 };
 
 const getProviderMetadata = async (address) => {
-  try {
-    const response = await vmQuery({
-      contract: address,
-      func: 'getMetaData',
-    });
   if (response) {
     try {
       const [name, website, identity] = response.map((base64) =>
