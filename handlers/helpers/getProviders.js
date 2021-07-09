@@ -89,16 +89,15 @@ const getProviderMetadata = async (address) => {
       contract: address,
       func: 'getMetaData',
     });
-  if (response) {
-    try {
+    if (response) {
       const [name, website, identity] = response.map((base64) =>
         Buffer.from(base64, 'base64').toString().trim().toLowerCase()
       );
 
       return { name, website, identity };
-    } catch (error) {
-      return { name: null, website: null, identity: null };
     }
+  } catch (error) {
+    return { name: null, website: null, identity: null };
   }
 };
 
