@@ -13,7 +13,7 @@ const {
   axiosConfig,
 } = require(`./configs/${process.env.CONFIG}`);
 
-const locked = 2890000;
+const locked = 2660000;
 
 exports.handler = async ({ queryStringParameters }) => {
   const { extract } = queryStringParameters || {};
